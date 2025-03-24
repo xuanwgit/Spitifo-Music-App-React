@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 //pages & components
 import Navbar from "./components/NavbarHomePage";
@@ -19,13 +19,13 @@ function App() {
   const { songsdata } = useSongsContext();
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <Navbar />
         <div className="pages">
           <Routes>
             <Route
               path="/"
-              element={user ? <Home /> : <Navigate to="/login" />}
+              element={<Home />}
             />
             <Route
               path="/login"
@@ -71,7 +71,7 @@ function App() {
           </Routes>
         </div>
         {songsdata && <AudioPlayer />}
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }

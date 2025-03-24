@@ -1,21 +1,57 @@
 const Album = require("../models/albumModel");
 const mongoose = require("mongoose");
 
-// GET ALL albums
-const getAlbums = async (req, res) => {
-  //the find method CAN be FILTERED...or sorted: here createdAt: -1 = Desc
-  const albums = await Album.find().sort({ createdAt: -1 });
-
+// GET ALL public albums
+const getPublicAlbums = async (req, res) => {
+  const albums = await Album.find({ isPublic: true }).sort({ createdAt: -1 });
   res.status(200).json(albums);
 };
+
+// GET ALL albums (including public ones)
+const getAlbums = async (req, res) => {
+  const albums = await Album.find().sort({ createdAt: -1 });
+  res.status(200).json(albums);
+};
+
 // GET USER'S albums
 const getUserAlbums = async (req, res) => {
   const user_id = req.user._id;
-  //the find method CAN be FILTERED...or sorted: here createdAt: -1 = Desc
   const albums = await Album.find({ user_id }).sort({ createdAt: -1 });
-
   res.status(200).json(albums);
 };
+
+// GET user's favorite albums
+const getUserFavorites = async (req, res) => {
+  const user_id = req.user._id;
+  const albums = await Album.find({ favorites: user_id }).sort({ createdAt: -1 });
+  res.status(200).json(albums);
+};
+
+// Toggle favorite status for an album
+const toggleFavorite = async (req, res) => {
+  const { id } = req.params;
+  const user_id = req.user._id;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(422).json({ error: "invalid ID" });
+  }
+
+  const album = await Album.findById(id);
+  if (!album) {
+    return res.status(404).json({ error: `album at id ${id} not found` });
+  }
+
+  const isFavorited = album.favorites.includes(user_id);
+  if (isFavorited) {
+    album.favorites = album.favorites.filter(id => id !== user_id);
+  } else {
+    album.favorites.push(user_id);
+  }
+
+  await album.save();
+  res.status(200).json(album);
+};
+
 //GET SINGLE Album by id
 const getAlbum = async (req, res) => {
   const { id } = req.params;
@@ -97,4 +133,7 @@ module.exports = {
   getAlbums,
   deleteAlbum,
   updateAlbum,
+  getPublicAlbums,
+  getUserFavorites,
+  toggleFavorite,
 };

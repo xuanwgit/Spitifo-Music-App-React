@@ -10,7 +10,7 @@ export const albumReducer = (state, action) => {
       };
     case "CREATE_ALBUM":
       return {
-        albums: [action.payload, ...state.albums],
+        albums: [action.payload, ...(state.albums || [])],
       };
     case "DELETE_ALBUM":
       return {

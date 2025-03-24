@@ -12,96 +12,68 @@ const Navbar = () => {
   const handleClick = () => {
     logout();
   };
+  
   return (
-    // <header>
-    //    {/* <div className="container">  */}
-    //   <div className="home">
-    //   <div className="songs">
-    //     <Link to="/">
-    //       <img src={imgs} className="img1" />
-    //     </Link>
-    //     <nav>
-    //       {user && (
-    //         <div>
-    //           <span>{user.email}</span>
-    //           <Link to={"/myalbums"}> My Albums</Link>
-    //           <button onClick={handleClick}>Log Out</button>
-    //         </div>
-    //       )}
-    //       {!user && (
-    //         <div>
-    //           <Link to="/login">Login</Link>
-    //           <Link to="/signup">Sign Up</Link>
-    //         </div>
-    //       )}
-    //       {user && user.role === "ADMIN" && (
-    //         <div>
-    //           <Link to="/AdminPanel">Admin Panel</Link>
-    //         </div>
-    //       )}
-    //     </nav>
-    //   </div>
-    //   </div>
-    //    {/* </div>  */}
-    // </header>
-    <div className="container-fluid">
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        {/* <a className="navbar-brand" href="#">Navbar</a> */}
-        <Link to="/">
-          <img src={imgs} className="img1" />
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div className="container-fluid">
+        <Link className="navbar-brand" to="/">
+          <img src={imgs} alt="Logo" height="40" className="d-inline-block align-text-top" />
         </Link>
-        {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span className="navbar-toggler-icon"></span>
-  </button> */}
+        
+        <button 
+          className="navbar-toggler" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#navbarNav" 
+          aria-controls="navbarNav" 
+          aria-expanded="false" 
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <a className="nav-link" href="#">
-                <Link to="/">Home</Link> <span className="sr-only"></span>
-              </a>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <Link className="nav-link" to="/">Home</Link>
             </li>
-
-            {user && user.role === "ADMIN" && (
-              <li className="nav-item active">
-                <a className="nav-link" href="#">
-                  <Link to={"/AdminPanel"}>Admin Panel </Link>{" "}
-                  <span className="sr-only"></span>
-                </a>
-              </li>
-            )}
-
             {user && (
               <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <div className="align-items-right">
-                    <span>{user.email}</span>
-                    <Link to={"/myalbums"}> My Albums</Link>
-                    <button
-                      type="button"
-                      className="btn btn-secondary btn-sm active"
-                      onClick={handleClick}
-                    >
-                      Log Out
-                    </button>
-                  </div>
-                </a>
+                <Link className="nav-link" to="/myalbums">My Albums</Link>
               </li>
             )}
-            {!user && (
+            {user && user.role === "ADMIN" && (
               <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <div className="align-items-right">
-                    <Link to={"/login"}> Login</Link>
-                    <Link to={"/signup"}> Signup</Link>
-                  </div>
-                </a>
+                <Link className="nav-link" to="/AdminPanel">Admin Panel</Link>
               </li>
             )}
           </ul>
+          
+          <ul className="navbar-nav">
+            {user ? (
+              <li className="nav-item d-flex align-items-center">
+                <span className="nav-link me-3">{user.email}</span>
+                <button
+                  className="btn btn-outline-light"
+                  onClick={handleClick}
+                >
+                  Log Out
+                </button>
+              </li>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">Login</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/signup">Sign Up</Link>
+                </li>
+              </>
+            )}
+          </ul>
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
   );
 };
 

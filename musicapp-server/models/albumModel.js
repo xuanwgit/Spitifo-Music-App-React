@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const albumSchema = new Schema({
@@ -18,6 +18,13 @@ const albumSchema = new Schema({
     type: String,
     required: true,
   },
+  isPublic: {
+    type: Boolean,
+    default: false,
+  },
+  favorites: [{
+    type: String,  // Will store user IDs who favorited this album
+  }],
   //TEST with ref id instead of push into empty array
   songs: [
     {
@@ -27,4 +34,5 @@ const albumSchema = new Schema({
   ],
 });
 
-module.exports = mongoose.model("Album", albumSchema);
+const Album = mongoose.model("Album", albumSchema);
+export default Album;

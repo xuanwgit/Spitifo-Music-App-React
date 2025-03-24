@@ -1,26 +1,25 @@
-//app declarations
-const express = require("express");
-//routing
+import express from 'express';
+import { loginAdmin, signupAdmin } from '../controllers/adminController.js';
+import { updateUser, deleteUser, getUser, getUsers, createAdmin } from '../controllers/userController.js';
+import requireAuth from '../middleware/requireAuth.js';
+import requireAdmin from '../middleware/requireAdmin.js';
+
 const router = express.Router();
-//routing to controllers
-const {
-  updateUser,
-  deleteUser,
-  getUser,
-  getUsers,
-  createAdmin,
-} = require("../controllers/usersController");
-//authentication middleware for all admin routes
-const requireAdmin = require("../middleware/requireAdmin");
-router.use(requireAdmin); //Special AUTH also looking for ADMIN role
-//routes
-router.get("/", getUsers);
 
-router.get("/:id", getUser);
+// login route
+router.post('/login', loginAdmin);
 
-router.post("/", createAdmin);
+// signup route
+router.post('/signup', requireAuth, signupAdmin);
 
-router.delete("/:id", deleteUser);
+// Apply admin middleware to all routes below this
+router.use(requireAdmin);
 
-router.patch("/:id", updateUser);
-module.exports = router;
+// Admin routes
+router.get('/', getUsers);
+router.get('/:id', getUser);
+router.post('/', createAdmin);
+router.delete('/:id', deleteUser);
+router.patch('/:id', updateUser);
+
+export default router;

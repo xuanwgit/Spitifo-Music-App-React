@@ -1,32 +1,25 @@
-//app declarations
-const express = require("express");
-//routing
-const router = express.Router();
-//routing to controllers
-const {
-  createSong,
+import express from 'express';
+import {
   getSongs,
   getSong,
-  getAlbumSongs,
-  getPlaylistSongs,
+  createSong,
   deleteSong,
   updateSong,
-} = require("../controllers/songControllers");
-//authentication middleware for all song routes
-const requireAuth = require("../middleware/requireAuth");
-// router.use(requireAuth); //MAYBE NEED TO CHANGE SOME ROUTES WITHTOUT AUTH
-//routes
-router.get("/all", getSongs);
+  getAlbumSongs
+} from '../controllers/songController.js';
+import requireAuth from '../middleware/requireAuth.js';
 
-router.get("/album/:album_id", getAlbumSongs);
+const router = express.Router();
 
-router.get("/playlist/:playlist_id", getPlaylistSongs);
+// Public routes
+router.get('/album/:albumId', getAlbumSongs);
+router.get('/:id', getSong);
 
-router.get("/:id", requireAuth, getSong);
+// Protected routes
+router.use(requireAuth);
+router.get('/', getSongs);
+router.post('/', createSong);
+router.delete('/:id', deleteSong);
+router.patch('/:id', updateSong);
 
-router.post("/", requireAuth, createSong);
-
-router.delete("/:id", requireAuth, deleteSong);
-
-router.patch("/:id", requireAuth, updateSong);
-module.exports = router;
+export default router;

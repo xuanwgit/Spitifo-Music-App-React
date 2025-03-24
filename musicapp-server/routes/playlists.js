@@ -1,29 +1,29 @@
-//app declarations
-const express = require("express");
-//routing
-const router = express.Router();
-//routing to controllers
-const {
-  createPlaylist,
-  getUserPlaylists,
+import express from 'express';
+import {
   getPlaylists,
   getPlaylist,
+  createPlaylist,
   deletePlaylist,
   updatePlaylist,
-} = require("../controllers/playlistControllers");
-//authentication middleware for all playlist routes
-// const requireAuth = require("../middleware/requireAuth");
-// router.use(requireAuth); //MAYBE NEED TO CHANGE SOME ROUTES WITHTOUT AUTH
-//routes
-router.get("/all", getPlaylists);
+  addSongToPlaylist,
+  removeSongFromPlaylist
+} from '../controllers/playlistController.js';
+import requireAuth from '../middleware/requireAuth.js';
 
-router.get("/user", getUserPlaylists);
+const router = express.Router();
 
-router.get("/:id", getPlaylist);
+// All playlist routes require authentication
+router.use(requireAuth);
 
-router.post("/", createPlaylist);
+// Playlist CRUD operations
+router.get('/', getPlaylists);
+router.get('/:id', getPlaylist);
+router.post('/', createPlaylist);
+router.delete('/:id', deletePlaylist);
+router.patch('/:id', updatePlaylist);
 
-router.delete("/:id", deletePlaylist);
+// Playlist song operations
+router.post('/:id/songs', addSongToPlaylist);
+router.delete('/:id/songs/:songId', removeSongFromPlaylist);
 
-router.patch("/:id", updatePlaylist);
-module.exports = router;
+export default router;

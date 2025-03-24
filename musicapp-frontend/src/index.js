@@ -4,14 +4,17 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { SongsContextProvider } from "./context/SongsContext";
 import { AuthContextProvider } from "./context/AuthContext";
+import { AlbumsContextProvider } from "./context/AlbumsContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <SongsContextProvider>
-        <App />
-      </SongsContextProvider>
+      <AlbumsContextProvider>
+        <SongsContextProvider>
+          <App />
+        </SongsContextProvider>
+      </AlbumsContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
 );
