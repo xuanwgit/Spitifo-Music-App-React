@@ -7,6 +7,7 @@
 /build
 /musicapp-frontend/build
 /musicapp-server/build
+/dist
 
 # MongoDB
 /data
@@ -20,18 +21,66 @@ data/db/
 .env.development.local
 .env.test.local
 .env.production.local
+.env*.local
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+logs
+*.log
 
 # IDE
 .idea/
 .vscode/
 *.swp
 *.swo
+.vs/
+*.sublime-workspace
+*.sublime-project
 
 # OS
 .DS_Store
-Thumbs.db 
+Thumbs.db
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Media files
+*.mp3
+*.wav
+*.ogg
+uploads/*
+!uploads/.gitkeep
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.temp/
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# AWS credentials
+aws-credentials.json
+.aws/ 
