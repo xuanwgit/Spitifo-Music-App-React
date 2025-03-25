@@ -8,8 +8,6 @@ import API_URL from '../config';
 // not finish yet
 function AllAlbums() {
 
-  let url = "https://spitifo.s3.amazonaws.com/";
-
   const [albums, setAlbums] = useState([]);
   const [album, setAlbum] = useState([]);
   const { user } = useAuthContext();
@@ -27,8 +25,16 @@ function AllAlbums() {
       const json = await response.json();
 
       if (response.ok) {
-        setAlbums(json);
-
+        const albums = json.map((album) => {
+          let url = "https://my-musicapp-bucket.s3.us-east-1.amazonaws.com/";
+          if (album.coverImage) {
+            url += album.coverImage;
+          } else {
+            url += "default-album-cover.jpg";
+          }
+          return { ...album, coverImage: url };
+        });
+        setAlbums(albums);
       }
     };
     if (user) {
@@ -75,7 +81,7 @@ function AllAlbums() {
                 {/* <img src={url + album.cover} alt="Pics" width="200" height="200" class="rounded float-left mt-0 ml-1 px-2 p-3" /> */}
   
                 <div className='item2 bg2 '>
-        <img src={url + album.cover} className="img2" />
+        <img src={album.coverImage} className="img2" />
         <div>
           <div className=' ft15 wb mt-10 '>
             {album.title}
