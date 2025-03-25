@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import API_URL from '../config';
 
 
 // not finish yet
@@ -17,7 +18,7 @@ function AllAlbums() {
   useEffect(() => {
     const fetchAlbums = async () => {
       console.log(user);
-      const response = await fetch("/api/album/all", {
+      const response = await fetch(`${API_URL}/api/album/all`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Link } from "react-router-dom";
 import { BsTrash, BsPencil, BsPlusCircle, BsPlayCircle } from "react-icons/bs";
+import API_URL from '../config';
 
 // Function to decode JWT token
 const decodeToken = (token) => {
@@ -60,7 +61,7 @@ function MyAlbums() {
       });
 
       try {
-        const response = await fetch("/api/album", {
+        const response = await fetch(`${API_URL}/api/album`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -108,7 +109,7 @@ function MyAlbums() {
     }
 
     try {
-      const response = await fetch(`/api/album/${albumId}`, {
+      const response = await fetch(`${API_URL}/api/album/${albumId}`, {
         method: "DELETE",
         headers: {
           'Authorization': `Bearer ${user.token}`,

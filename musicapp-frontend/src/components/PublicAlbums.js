@@ -3,6 +3,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { Link } from "react-router-dom";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import styles from "../styles/MyAlbums.module.css";
+import API_URL from '../config';
 
 function PublicAlbums() {
   const [publicAlbums, setPublicAlbums] = useState([]);
@@ -12,7 +13,7 @@ function PublicAlbums() {
 
   useEffect(() => {
     const fetchPublicAlbums = async () => {
-      const response = await fetch("/api/albums/public");
+      const response = await fetch(`${API_URL}/api/albums/public`);
       const json = await response.json();
 
       if (response.ok) {
@@ -24,7 +25,7 @@ function PublicAlbums() {
 
     const fetchFavoriteAlbums = async () => {
       if (user) {
-        const response = await fetch("/api/album/favorites", {
+        const response = await fetch(`${API_URL}/api/album/favorites`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -47,7 +48,7 @@ function PublicAlbums() {
       return;
     }
 
-    const response = await fetch(`/api/album/${albumId}/favorite`, {
+    const response = await fetch(`${API_URL}/api/album/${albumId}/favorite`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${user.token}`,

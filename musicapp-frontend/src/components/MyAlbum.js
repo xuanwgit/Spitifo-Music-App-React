@@ -4,6 +4,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { BsPlusCircle, BsTrash, BsPencil } from "react-icons/bs";
 import styles from "../styles/MyAlbums.module.css";
+import API_URL from '../config';
 
 // Function to decode JWT token
 const decodeToken = (token) => {
@@ -60,7 +61,7 @@ function MyAlbum() {
 
       try {
         setIsLoading(true);
-        const response = await fetch(`/api/album/bytitle/${titleParam}`, {
+        const response = await fetch(`${API_URL}/api/album/bytitle/${titleParam}`, {
           headers: {
             Authorization: `Bearer ${user.token}`
           }
@@ -108,7 +109,7 @@ function MyAlbum() {
     }
 
     try {
-      const response = await fetch(`/api/songs/album/${albumId}`, {
+      const response = await fetch(`${API_URL}/api/songs/album/${albumId}`, {
         headers: {
           Authorization: `Bearer ${user.token}`
         }
@@ -157,7 +158,7 @@ function MyAlbum() {
     }
 
     try {
-      const response = await fetch(`/api/songs/${songId}`, {
+      const response = await fetch(`${API_URL}/api/songs/${songId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -202,7 +203,7 @@ function MyAlbum() {
         return;
       }
 
-      const response = await fetch(`/api/album/${album._id}`, {
+      const response = await fetch(`${API_URL}/api/album/${album._id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${user.token}`

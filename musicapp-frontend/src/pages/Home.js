@@ -4,6 +4,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { Link } from "react-router-dom";
 import { BsHeart, BsHeartFill, BsPlayCircle, BsPlusCircle } from "react-icons/bs";
 import styles from "../styles/MyAlbums.module.css";
+import API_URL from '../config';
 
 // Helper function to format title for URL
 const formatTitleForUrl = (title) => {
@@ -19,7 +20,7 @@ function Home() {
   // Fetch public albums
   useEffect(() => {
     const fetchPublicAlbums = async () => {
-      const response = await fetch("/api/album/public");
+      const response = await fetch(`${API_URL}/api/album/public`);
       const json = await response.json();
 
       if (response.ok) {
@@ -36,7 +37,7 @@ function Home() {
   useEffect(() => {
     const fetchFavorites = async () => {
       if (user) {
-        const response = await fetch("/api/album/favorites", {
+        const response = await fetch(`${API_URL}/api/album/favorites`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -61,7 +62,7 @@ function Home() {
       return;
     }
 
-    const response = await fetch(`/api/albums/${albumId}`, {
+    const response = await fetch(`${API_URL}/api/albums/${albumId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -87,7 +88,7 @@ function Home() {
     }
 
     try {
-      const response = await fetch(`/api/albums/${albumId}/favorite`, {
+      const response = await fetch(`${API_URL}/api/albums/${albumId}/favorite`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${user.token}`,
