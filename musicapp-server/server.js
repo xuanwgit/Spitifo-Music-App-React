@@ -35,7 +35,8 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: '*',  // Allow all origins during development
+  origin: ['http://localhost:3000', 'https://xuanwgit.github.io'],
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
