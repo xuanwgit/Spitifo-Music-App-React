@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Spitifo-Music-App-React/static/css/main.98cfa085.css",
-    "main.js": "/Spitifo-Music-App-React/static/js/main.b3c976a4.js",
+    "main.js": "/Spitifo-Music-App-React/static/js/main.d4e66d5f.js",
     "static/media/logo-white.png": "/Spitifo-Music-App-React/static/media/logo-white.1c179373e732cde1d648.png",
     "index.html": "/Spitifo-Music-App-React/index.html",
     "main.98cfa085.css.map": "/Spitifo-Music-App-React/static/css/main.98cfa085.css.map",
-    "main.b3c976a4.js.map": "/Spitifo-Music-App-React/static/js/main.b3c976a4.js.map"
+    "main.d4e66d5f.js.map": "/Spitifo-Music-App-React/static/js/main.d4e66d5f.js.map"
   },
   "entrypoints": [
     "static/css/main.98cfa085.css",
-    "static/js/main.b3c976a4.js"
+    "static/js/main.d4e66d5f.js"
   ]
 }
