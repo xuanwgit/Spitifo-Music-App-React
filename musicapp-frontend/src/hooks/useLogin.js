@@ -17,13 +17,13 @@ export const useLogin= () => {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                mode: 'cors',
-                credentials: 'omit',
+                credentials: 'include',
                 body: JSON.stringify({email, password})
             })
 
             if (!response.ok) {
-                throw new Error('Login failed');
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Login failed');
             }
 
             const json = await response.json()
