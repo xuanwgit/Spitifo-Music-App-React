@@ -15,9 +15,13 @@ export const getAlbums = async (req, res) => {
 // Get public albums
 export const getPublicAlbums = async (req, res) => {
   try {
+    console.log('Fetching public albums...');
     const albums = await Album.find({ isPublic: true }).sort({ createdAt: -1 });
+    console.log('Found albums:', albums);
+    console.log('Number of public albums found:', albums.length);
     res.status(200).json(albums);
   } catch (error) {
+    console.error('Error fetching public albums:', error);
     res.status(400).json({ error: error.message });
   }
 };
