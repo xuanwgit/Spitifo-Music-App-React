@@ -156,11 +156,15 @@ function Home() {
               <div className="col-md-4 col-lg-3" key={album._id}>
                 <div className="album-card">
                   <div className="album-image-container">
+                    <p style={{ color: 'white', position: 'absolute', top: 0, left: 0, zIndex: 1, margin: '5px', fontSize: '10px', background: 'rgba(0,0,0,0.5)', padding: '2px 5px' }}>
+                      Cover value: {album.cover}
+                    </p>
                     <img
                       src={`https://my-musicapp-bucket.s3.us-east-1.amazonaws.com/${album.cover}`}
                       className="album-image"
                       alt={album.title}
                       onError={(e) => {
+                        console.error('Image load error for album:', album.title, 'cover:', album.cover);
                         e.target.onerror = null;
                         e.target.src = 'https://placehold.co/400x400/1DB954/ffffff?text=Album';
                       }}
@@ -215,11 +219,15 @@ function Home() {
                 <div className="col-md-4 col-lg-3" key={album._id}>
                   <div className="album-card">
                     <div className="album-image-container">
+                      <p style={{ color: 'white', position: 'absolute', top: 0, left: 0, zIndex: 1, margin: '5px', fontSize: '10px', background: 'rgba(0,0,0,0.5)', padding: '2px 5px' }}>
+                        Cover value: {album.cover}
+                      </p>
                       <img
                         src={`https://my-musicapp-bucket.s3.us-east-1.amazonaws.com/${album.cover}`}
                         className="album-image"
                         alt={album.title}
                         onError={(e) => {
+                          console.error('Image load error for album:', album.title, 'cover:', album.cover);
                           e.target.onerror = null;
                           e.target.src = 'https://placehold.co/400x400/1DB954/ffffff?text=Album';
                         }}
