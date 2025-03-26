@@ -20,13 +20,32 @@ function Home() {
   // Fetch public albums
   useEffect(() => {
     const fetchPublicAlbums = async () => {
-      const response = await fetch(`${API_URL}/api/album/public`);
-      const json = await response.json();
+      try {
+        console.log('Starting fetch request to:', `${API_URL}/api/album/public`);
+        const response = await fetch(`${API_URL}/api/album/public`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
 
-      if (response.ok) {
+        console.log('Response status:', response.status);
+        console.log('Response headers:', Object.fromEntries(response.headers));
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('Error response:', errorText);
+          throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
+        }
+        
+        const json = await response.json();
+        console.log('Fetched albums:', json);
+
         setPublicAlbums(json);
-      } else {
-        setError(json.error);
+      } catch (error) {
+        console.error('Full error object:', error);
+        console.error('Error stack:', error.stack);
+        setError('Failed to fetch albums. Please try again later.');
       }
     };
 
