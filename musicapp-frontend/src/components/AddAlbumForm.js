@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "../styles/MyAlbums.module.css";
 import { Link } from "react-router-dom";
 import { useAlbumsContext } from "../hooks/useAlbumsContext";
+import API_URL from '../config';
 
 function AddAlbumForm() {
   let navigate = useNavigate();
@@ -25,13 +26,18 @@ function AddAlbumForm() {
     formData.append("image", image)
     formData.append("isPublic", "true")
 
-    const result = await axios.post('/api/album', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${user.token}`,
-      }
-    })
-    return result.data
+    try {
+      const result = await axios.post(`${API_URL}/api/album`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${user.token}`,
+        }
+      });
+      return result.data;
+    } catch (error) {
+      console.error('Upload error:', await error.response?.text?.() || error.message);
+      throw error;
+    }
   }
 
   const submit = async event => {
